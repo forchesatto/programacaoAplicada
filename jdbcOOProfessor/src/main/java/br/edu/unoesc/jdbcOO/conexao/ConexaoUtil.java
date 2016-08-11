@@ -10,6 +10,10 @@ public class ConexaoUtil {
 	private static Connection connection;
 
 	static {
+		createConnection();
+	}
+	
+	private static void createConnection(){
 		String url = "jdbc:mysql://localhost:3306/medico_2016";
 		String user = "root";
 		String password = "";
@@ -21,7 +25,15 @@ public class ConexaoUtil {
 		}
 	}
 	
+	
 	public static Connection get(){
+		try {
+			if(connection.isClosed()){
+				createConnection();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return connection;
 	}
 	
