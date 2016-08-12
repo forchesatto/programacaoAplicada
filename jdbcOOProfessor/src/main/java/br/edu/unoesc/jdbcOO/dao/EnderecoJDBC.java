@@ -115,7 +115,28 @@ public class EnderecoJDBC implements EnderecoDAO {
 
 	@Override
 	public Collection<Endereco> getPorRua(String rua) {
-		return null;
+		Connection conn = ConexaoUtil.get();
+		String sql = "select * from Endereco where rua = ?";
+		List<Endereco> enderecos = new ArrayList<>();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, rua);
+			ResultSet rs = ps.executeQuery();
+			// Passa por todos os registros que vieram do banco.
+			while (rs.next()) {
+				// Cria um objeto endereco por vez
+				Endereco endereco = new Endereco(rs.getLong("codendereco"), 
+						rs.getString("rua"),
+						rs.getString("bairro"));
+				// adiciona na lista de retorno
+				enderecos.add(endereco);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConexaoUtil.close();
+		}
+		return enderecos;
 	}
 
 }

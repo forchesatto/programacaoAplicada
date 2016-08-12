@@ -3,6 +3,8 @@ package dao.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Collection;
+
 import org.junit.Test;
 
 import br.edu.unoesc.jdbcOO.dao.EnderecoDAO;
@@ -34,6 +36,18 @@ public class EnderecoDAOTest {
 		Endereco enderecoBanco = enderecoDAO.get(endereco.getCodigo());
 		assertEquals("Jardins", enderecoBanco.getBairro());
 		enderecoDAO.excluir(enderecoBanco.getCodigo());
+	}
+	
+	@Test
+	public void deveListaEnderecosPorRua() {
+		Endereco endereco = new Endereco();
+		endereco.setBairro("Centro");
+		endereco.setRua("Rua Principal");
+		EnderecoDAO enderecoDAO = new EnderecoJDBC();
+		enderecoDAO.inserir(endereco);
+		Collection<Endereco> ruas = enderecoDAO.getPorRua("Rua Principal");
+		assertEquals(1,ruas.size());
+		enderecoDAO.excluir(endereco.getCodigo());
 	}
 
 }
