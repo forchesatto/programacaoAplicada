@@ -23,7 +23,7 @@ public class EnderecoJDBC implements EnderecoDAO {
 			ps.setString(1, objeto.getRua());
 			ps.setString(2, objeto.getBairro());
 			ps.executeUpdate();
-			//Popular o objeto com o código gerado.
+			// Popular o objeto com o código gerado.
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();
 			objeto.setCodigo(rs.getLong(1));
@@ -75,14 +75,7 @@ public class EnderecoJDBC implements EnderecoDAO {
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			// Passa por todos os registros que vieram do banco.
-			while (rs.next()) {
-				// Cria um objeto endereco por vez
-				Endereco endereco = new Endereco(rs.getLong("codendereco"), rs.getString("rua"),
-						rs.getString("bairro"));
-				// adiciona na lista de retorno
-				enderecos.add(endereco);
-			}
+			enderecos = getLista(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -102,8 +95,7 @@ public class EnderecoJDBC implements EnderecoDAO {
 			ResultSet rs = ps.executeQuery();
 			// Passa por todos os registros que vieram do banco.
 			while (rs.next()) {
-				// Cria um objeto endereco por vez
-				endereco = new Endereco(rs.getLong("codendereco"), rs.getString("rua"), rs.getString("bairro"));
+				endereco = getEndereco(rs);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,21 +114,28 @@ public class EnderecoJDBC implements EnderecoDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, rua);
 			ResultSet rs = ps.executeQuery();
-			// Passa por todos os registros que vieram do banco.
-			while (rs.next()) {
-				// Cria um objeto endereco por vez
-				Endereco endereco = new Endereco(rs.getLong("codendereco"), 
-						rs.getString("rua"),
-						rs.getString("bairro"));
-				// adiciona na lista de retorno
-				enderecos.add(endereco);
-			}
+			enderecos = getLista(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			ConexaoUtil.close();
 		}
 		return enderecos;
+	}
+
+	private List<Endereco> getLista(ResultSet rs) throws SQLException {
+		List<Endereco> enderecos = new ArrayList<>();
+		while (rs.next()) {
+			enderecos.add(getEndereco(rs));
+		}
+		return enderecos;
+	}
+
+	private Endereco getEndereco(ResultSet rs) throws SQLException {
+		Endereco endereco = new Endereco(rs.getLong("codendereco"), 
+				rs.getString("rua"),
+				rs.getString("bairro"));
+		return endereco;
 	}
 
 }
