@@ -1,8 +1,7 @@
 package dao.test;
 
-import static org.junit.Assert.*;
-
-import java.util.Collection;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -19,12 +18,8 @@ public class EnderecoDAOTest {
 		endereco.setRua("Rua Principal");
 		EnderecoDAO enderecoDAO = new EnderecoJDBC();
 		enderecoDAO.inserir(endereco);
-		Collection<Endereco> enderecos = enderecoDAO.todos();
-		// Marca o teste com vermelho ou verde, verde se deu certo.
-		assertEquals(1, enderecos.size());
-		Endereco enderecoBanco = enderecos.stream().findFirst().get();
-		assertEquals("Centro", enderecoBanco.getBairro());
-		enderecoDAO.excluir(enderecoBanco.getCodigo());
+		assertNotNull(endereco.getCodigo());
+		enderecoDAO.excluir(endereco.getCodigo());
 	}
 
 	@Test
@@ -34,12 +29,9 @@ public class EnderecoDAOTest {
 		endereco.setRua("Rua Principal");
 		EnderecoDAO enderecoDAO = new EnderecoJDBC();
 		enderecoDAO.inserir(endereco);
-		Collection<Endereco> enderecos = enderecoDAO.todos();
-		Endereco enderecoBanco = enderecos.stream().findFirst().get();
-		enderecoBanco.setBairro("Jardins");
-		enderecoDAO.alterar(enderecoBanco);
-		enderecos = enderecoDAO.todos();
-		enderecoBanco = enderecos.stream().findFirst().get();
+		endereco.setBairro("Jardins");
+		enderecoDAO.alterar(endereco);
+		Endereco enderecoBanco = enderecoDAO.get(endereco.getCodigo());
 		assertEquals("Jardins", enderecoBanco.getBairro());
 		enderecoDAO.excluir(enderecoBanco.getCodigo());
 	}
