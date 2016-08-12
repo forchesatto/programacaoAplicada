@@ -12,20 +12,36 @@ import br.edu.unoesc.jdbcOO.model.Endereco;
 
 public class EnderecoDAOTest {
 
-	
 	@Test
-	public void deveInserirEnderecoNovo(){
+	public void deveInserirEnderecoNovo() {
 		Endereco endereco = new Endereco();
 		endereco.setBairro("Centro");
 		endereco.setRua("Rua Principal");
 		EnderecoDAO enderecoDAO = new EnderecoJDBC();
 		enderecoDAO.inserir(endereco);
 		Collection<Endereco> enderecos = enderecoDAO.todos();
-		//Marca o teste com vermelho ou verde, verde se deu certo.
+		// Marca o teste com vermelho ou verde, verde se deu certo.
 		assertEquals(1, enderecos.size());
-		Endereco enderecoBanco = enderecos.stream()
-		.findFirst().get();
+		Endereco enderecoBanco = enderecos.stream().findFirst().get();
 		assertEquals("Centro", enderecoBanco.getBairro());
 		enderecoDAO.excluir(enderecoBanco.getCodigo());
 	}
+
+	@Test
+	public void deveAlterarEndereco() {
+		Endereco endereco = new Endereco();
+		endereco.setBairro("Centro");
+		endereco.setRua("Rua Principal");
+		EnderecoDAO enderecoDAO = new EnderecoJDBC();
+		enderecoDAO.inserir(endereco);
+		Collection<Endereco> enderecos = enderecoDAO.todos();
+		Endereco enderecoBanco = enderecos.stream().findFirst().get();
+		enderecoBanco.setBairro("Jardins");
+		enderecoDAO.alterar(enderecoBanco);
+		enderecos = enderecoDAO.todos();
+		enderecoBanco = enderecos.stream().findFirst().get();
+		assertEquals("Jardins", enderecoBanco.getBairro());
+		enderecoDAO.excluir(enderecoBanco.getCodigo());
+	}
+
 }
