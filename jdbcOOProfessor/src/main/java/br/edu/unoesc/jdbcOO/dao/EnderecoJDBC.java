@@ -1,6 +1,5 @@
 package br.edu.unoesc.jdbcOO.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,17 +8,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import br.edu.unoesc.jdbcOO.conexao.ConexaoUtil;
+import br.edu.unoesc.jdbcOO.conexao.Conexao;
 import br.edu.unoesc.jdbcOO.model.Endereco;
 
 public class EnderecoJDBC implements EnderecoDAO {
 
+	private Conexao conexao;
+	
+	/**
+	 * Conexão com o banco de dados.
+	 * @param conexao.get()
+	 */
+	public EnderecoJDBC(Conexao conexao){
+		this.conexao = conexao;
+	}
+	
 	@Override
 	public void inserir(Endereco objeto) {
-		Connection conn = ConexaoUtil.get();
 		String insert = "insert into endereco (rua,bairro) values(?,?)";
 		try {
-			PreparedStatement ps = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = conexao.get().prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, objeto.getRua());
 			ps.setString(2, objeto.getBairro());
 			ps.executeUpdate();
@@ -30,16 +38,15 @@ public class EnderecoJDBC implements EnderecoDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConexaoUtil.close();
+			conexao.close();
 		}
 	}
 
 	@Override
 	public void alterar(Endereco objeto) {
-		Connection conn = ConexaoUtil.get();
 		String update = "update endereco set rua=?, bairro=? " + "where codendereco = ?";
 		try {
-			PreparedStatement ps = conn.prepareStatement(update);
+			PreparedStatement ps = conexao.get().prepareStatement(update);
 			ps.setString(1, objeto.getRua());
 			ps.setString(2, objeto.getBairro());
 			ps.setLong(3, objeto.getCodigo());
@@ -47,50 +54,47 @@ public class EnderecoJDBC implements EnderecoDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConexaoUtil.close();
+			conexao.close();
 		}
 
 	}
 
 	@Override
 	public void excluir(Long codigo) {
-		Connection conn = ConexaoUtil.get();
 		String delete = "delete from endereco " + "where codendereco = ?";
 		try {
-			PreparedStatement ps = conn.prepareStatement(delete);
+			PreparedStatement ps = conexao.get().prepareStatement(delete);
 			ps.setLong(1, codigo);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConexaoUtil.close();
+			conexao.close();
 		}
 	}
 
 	@Override
 	public Collection<Endereco> todos() {
-		Connection conn = ConexaoUtil.get();
 		String sql = "select * from Endereco";
 		List<Endereco> enderecos = new ArrayList<>();
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conexao.get().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			enderecos = getLista(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConexaoUtil.close();
+			conexao.close();
 		}
 		return enderecos;
 	}
 
 	@Override
 	public Endereco get(Long codigo) {
-		Connection conn = ConexaoUtil.get();
 		String sql = "select * from Endereco where codendereco = ?";
 		Endereco endereco = null;
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conexao.get().prepareStatement(sql);
 			ps.setLong(1, codigo);
 			ResultSet rs = ps.executeQuery();
 			// Passa por todos os registros que vieram do banco.
@@ -100,25 +104,24 @@ public class EnderecoJDBC implements EnderecoDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConexaoUtil.close();
+			conexao.close();
 		}
 		return endereco;
 	}
 
 	@Override
 	public Collection<Endereco> getPorRua(String rua) {
-		Connection conn = ConexaoUtil.get();
 		String sql = "select * from Endereco where rua = ?";
 		List<Endereco> enderecos = new ArrayList<>();
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conexao.get().prepareStatement(sql);
 			ps.setString(1, rua);
 			ResultSet rs = ps.executeQuery();
 			enderecos = getLista(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConexaoUtil.close();
+			conexao.close();
 		}
 		return enderecos;
 	}

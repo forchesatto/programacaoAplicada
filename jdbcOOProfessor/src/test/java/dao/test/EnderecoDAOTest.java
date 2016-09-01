@@ -8,7 +8,7 @@ import java.util.Collection;
 import org.junit.Test;
 
 import br.edu.unoesc.jdbcOO.dao.EnderecoDAO;
-import br.edu.unoesc.jdbcOO.dao.EnderecoJDBC;
+import br.edu.unoesc.jdbcOO.factory.DAOFactory;
 import br.edu.unoesc.jdbcOO.model.Endereco;
 
 public class EnderecoDAOTest {
@@ -18,7 +18,7 @@ public class EnderecoDAOTest {
 		Endereco endereco = new Endereco();
 		endereco.setBairro("Centro");
 		endereco.setRua("Rua Principal");
-		EnderecoDAO enderecoDAO = new EnderecoJDBC();
+		EnderecoDAO enderecoDAO = DAOFactory.get().enderecoDAO();
 		enderecoDAO.inserir(endereco);
 		assertNotNull(endereco.getCodigo());
 		enderecoDAO.excluir(endereco.getCodigo());
@@ -29,7 +29,7 @@ public class EnderecoDAOTest {
 		Endereco endereco = new Endereco();
 		endereco.setBairro("Centro");
 		endereco.setRua("Rua Principal");
-		EnderecoDAO enderecoDAO = new EnderecoJDBC();
+		EnderecoDAO enderecoDAO = DAOFactory.get().enderecoDAO();
 		enderecoDAO.inserir(endereco);
 		endereco.setBairro("Jardins");
 		enderecoDAO.alterar(endereco);
@@ -43,7 +43,7 @@ public class EnderecoDAOTest {
 		Endereco endereco = new Endereco();
 		endereco.setBairro("Centro");
 		endereco.setRua("Rua Principal");
-		EnderecoDAO enderecoDAO = new EnderecoJDBC();
+		EnderecoDAO enderecoDAO = DAOFactory.get().enderecoDAO();
 		enderecoDAO.inserir(endereco);
 		Collection<Endereco> ruas = enderecoDAO.getPorRua("Rua Principal");
 		assertEquals(1,ruas.size());

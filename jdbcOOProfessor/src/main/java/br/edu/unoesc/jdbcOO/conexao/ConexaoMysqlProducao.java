@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class ConexaoUtil {
+public class ConexaoMysqlProducao implements Conexao{
 
 	private static Connection connection;
 
@@ -26,7 +26,7 @@ public class ConexaoUtil {
 	}
 	
 	
-	public static Connection get(){
+	public Connection get(){
 		try {
 			if(connection.isClosed()){
 				createConnection();
@@ -37,7 +37,7 @@ public class ConexaoUtil {
 		return connection;
 	}
 	
-	public static void close(){
+	public void close(){
 		try {
 			connection.close();
 		} catch (SQLException e) {
