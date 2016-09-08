@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import br.edu.unoesc.jdbcOO.dao.EnderecoDAO;
 import br.edu.unoesc.jdbcOO.factory.DAOFactory;
+import br.edu.unoesc.jdbcOO.model.Cidade;
 import br.edu.unoesc.jdbcOO.model.Endereco;
 
 public class EnderecoDAOTest {
@@ -18,6 +19,7 @@ public class EnderecoDAOTest {
 		Endereco endereco = new Endereco();
 		endereco.setBairro("Centro");
 		endereco.setRua("Rua Principal");
+		endereco.setCidade(new Cidade(1L));
 		EnderecoDAO enderecoDAO = DAOFactory.get().enderecoDAO();
 		enderecoDAO.inserir(endereco);
 		assertNotNull(endereco.getCodigo());
@@ -29,6 +31,7 @@ public class EnderecoDAOTest {
 		Endereco endereco = new Endereco();
 		endereco.setBairro("Centro");
 		endereco.setRua("Rua Principal");
+		endereco.setCidade(new Cidade(1L));
 		EnderecoDAO enderecoDAO = DAOFactory.get().enderecoDAO();
 		enderecoDAO.inserir(endereco);
 		endereco.setBairro("Jardins");

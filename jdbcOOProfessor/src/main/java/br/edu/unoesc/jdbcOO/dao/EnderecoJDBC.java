@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 import br.edu.unoesc.jdbcOO.conexao.Conexao;
+import br.edu.unoesc.jdbcOO.model.Cidade;
 import br.edu.unoesc.jdbcOO.model.Endereco;
 
 public class EnderecoJDBC implements EnderecoDAO {
@@ -25,11 +26,13 @@ public class EnderecoJDBC implements EnderecoDAO {
 	
 	@Override
 	public void inserir(Endereco objeto) {
-		String insert = "insert into endereco (rua,bairro) values(?,?)";
+		String insert = "insert into endereco (rua,bairro,codcidade) "
+				+ "values(?,?,?)";
 		try {
 			PreparedStatement ps = conexao.get().prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, objeto.getRua());
 			ps.setString(2, objeto.getBairro());
+			ps.setLong(3, objeto.getCidade().getCodigo());
 			ps.executeUpdate();
 			// Popular o objeto com o código gerado.
 			ResultSet rs = ps.getGeneratedKeys();
@@ -44,12 +47,14 @@ public class EnderecoJDBC implements EnderecoDAO {
 
 	@Override
 	public void alterar(Endereco objeto) {
-		String update = "update endereco set rua=?, bairro=? " + "where codendereco = ?";
+		String update = "update endereco set rua=?, bairro=?, "
+				+ "codcidade = ? where codendereco = ?";
 		try {
 			PreparedStatement ps = conexao.get().prepareStatement(update);
 			ps.setString(1, objeto.getRua());
 			ps.setString(2, objeto.getBairro());
-			ps.setLong(3, objeto.getCodigo());
+			ps.setLong(3, objeto.getCidade().getCodigo());
+			ps.setLong(4, objeto.getCodigo());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -137,7 +142,8 @@ public class EnderecoJDBC implements EnderecoDAO {
 	private Endereco getEndereco(ResultSet rs) throws SQLException {
 		Endereco endereco = new Endereco(rs.getLong("codendereco"), 
 				rs.getString("rua"),
-				rs.getString("bairro"));
+				rs.getString("bairro"),
+				new Cidade(rs.getLong("codcidade")));
 		return endereco;
 	}
 

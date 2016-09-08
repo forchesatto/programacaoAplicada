@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Endereco {
+public class Cidade {
 
 	private Long codigo;
-	private String rua;
-	private String bairro;
-	private Cidade cidade;
+	private String nome;
+	
+	public Cidade(Long codigo) {
+		this.codigo = codigo;
+	}
 	
 }
