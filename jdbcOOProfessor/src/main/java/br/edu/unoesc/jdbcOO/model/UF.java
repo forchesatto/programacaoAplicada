@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cidade {
+public class UF {
 
 	private Long codigo;
 	private String nome;
-	private UF uf;
 	
-	public Cidade(Long codigo) {
+	public UF(Long codigo){
 		this.codigo = codigo;
 	}
-	
 }

@@ -1,8 +1,12 @@
 package br.edu.unoesc.jdbcOO.factory;
 
 import br.edu.unoesc.jdbcOO.conexao.ConexaoMysqlProducao;
+import br.edu.unoesc.jdbcOO.dao.CidadeDAO;
+import br.edu.unoesc.jdbcOO.dao.CidadeJDBC;
 import br.edu.unoesc.jdbcOO.dao.EnderecoDAO;
 import br.edu.unoesc.jdbcOO.dao.EnderecoJDBC;
+import br.edu.unoesc.jdbcOO.dao.UFDAO;
+import br.edu.unoesc.jdbcOO.dao.UFJDBC;
 
 public class DAOFactory {
 
@@ -28,5 +32,12 @@ public class DAOFactory {
 		return new EnderecoJDBC(new ConexaoMysqlProducao());
 	}
 	
+	public CidadeDAO cidadeDAO(){
+		return new CidadeJDBC(new ConexaoMysqlProducao());
+	}
+	
+	public UFDAO ufDAO(){
+		return new UFJDBC(new ConexaoMysqlProducao());
+	}
 	
 }
