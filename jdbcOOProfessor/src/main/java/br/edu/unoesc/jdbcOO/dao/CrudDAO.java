@@ -2,7 +2,9 @@ package br.edu.unoesc.jdbcOO.dao;
 
 import java.util.Collection;
 
-public interface CrudDAO<T> {
+import br.edu.unoesc.jdbcOO.model.Entidade;
+
+public interface CrudDAO<T extends Entidade> {
 
 	void inserir(T objeto);
 	
@@ -14,5 +16,12 @@ public interface CrudDAO<T> {
 	
 	T get(Long codigo);
 	
+	default void salvar(T objeto){
+		if(objeto.getCodigo() == null){
+			inserir(objeto);
+		} else {
+			alterar(objeto);
+		}
+	}
 	
 }

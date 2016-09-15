@@ -18,11 +18,11 @@ public class UFController {
     void onSalvar(ActionEvent event) {
     		String codigo = tfCodigo.getText();
     		UF uf = new UF();
+    		uf.setNome(tfNome.getText());
     		if(!codigo.isEmpty()){
     			uf.setCodigo(Long.valueOf(codigo));
     		}
-    		uf.setNome(tfNome.getText());
-    		
-    		DAOFactory.get().ufDAO().inserir(uf);
+    		DAOFactory.get().ufDAO().salvar(uf);
+    		tfCodigo.setText(uf.getCodigo().toString());
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UF {
+public class UF implements Entidade{
 
 	private Long codigo;
 	private String nome;

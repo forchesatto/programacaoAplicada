@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cidade {
+public class Cidade implements Entidade{
 
 	private Long codigo;
 	private String nome;

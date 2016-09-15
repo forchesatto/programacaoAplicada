@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Endereco {
+public class Endereco implements Entidade{
 
 	private Long codigo;
 	private String rua;
