@@ -123,4 +123,22 @@ public class UFJDBC implements UFDAO {
 		return uf;
 	}
 
+	@Override
+	public List<UF> getPorNome(String nome) {
+		String sql = "select * from UF where nome like ?";
+		nome = "%"+nome+"%";
+		List<UF> UFs = new ArrayList<>();
+		try {
+			PreparedStatement ps = conexao.get().prepareStatement(sql);
+			ps.setString(1, nome);
+			ResultSet rs = ps.executeQuery();
+			UFs = getLista(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexao.close();
+		}
+		return UFs;
+	}
+
 }
