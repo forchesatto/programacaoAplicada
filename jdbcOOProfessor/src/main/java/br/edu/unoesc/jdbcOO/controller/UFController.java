@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class UFController {
 
@@ -36,8 +37,10 @@ public class UFController {
 
 	@FXML
 	public void initialize() {
-		tcCodigo.setCellValueFactory(uf -> uf.getValue().getCodigoProperty());
-		tcNome.setCellValueFactory(uf -> uf.getValue().getNomeProperty());
+//		tcCodigo.setCellValueFactory(uf -> uf.getValue().getCodigoProperty());
+//		tcNome.setCellValueFactory(uf -> uf.getValue().getNomeProperty());
+		tcCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+		tcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		Collection<UF> ufs = ufDAO.todos();
 		tblUf.getItems().addAll(ufs);
 	}
