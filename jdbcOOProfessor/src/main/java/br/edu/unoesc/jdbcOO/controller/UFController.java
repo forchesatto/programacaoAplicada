@@ -92,11 +92,16 @@ public class UFController {
 
 	@FXML
 	void onPesquisar(KeyEvent event) {
-		if(tfPesquisa.getText().length() > 3){
-			List<UF> ufs = ufDAO.getPorNome(tfPesquisa.getText());
+		/*Dentro do tfPesquisa.getText() tem as letras antes 
+		 * da que esta no "event" por esse motivo
+		 * preciso concatenar com o event. 
+		 */
+		String pesquisa = tfPesquisa.getText() + event.getText();
+		if(pesquisa.length() > 2){
+			List<UF> ufs = ufDAO.getPorNome(pesquisa);
 			tblUf.setItems(FXCollections.observableArrayList(ufs));
 		}
-		if(tfPesquisa.getText().isEmpty()){
+		if(pesquisa.length() < 2){
 			atualizaTabela();
 		}
 	}
