@@ -126,4 +126,26 @@ public class CidadeJDBC implements CidadeDAO {
 		return cidade;
 	}
 
+	@Override
+	public List<Cidade> todosComUf() {
+		String sql = "select c.codcidade, c.nome nomeCidade, c.coduf, u.nome nomeUf"
+				+ " from Cidade c join Uf u on c.coduf = u.coduf ";
+		List<Cidade> cidades = new ArrayList<>();
+		try {
+			PreparedStatement ps = conexao.get().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				Cidade cidade = new Cidade(rs.getLong("codcidade"), 
+						rs.getString("nomeCidade"), 
+						new UF(rs.getLong("coduf"), rs.getString("nomeUf")));
+				cidades.add(cidade);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexao.close();
+		}
+		return cidades;
+	}
+
 }

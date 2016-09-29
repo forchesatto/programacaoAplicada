@@ -14,8 +14,10 @@ public class Main extends Application {
 			 * Encontra o arquivo fxml com o nome ufForm.fxml e cria o root que é
 			 * o AnchorPane adicionado no SceneBuilder.
 			 */
+//			AnchorPane root = (AnchorPane) FXMLLoader
+//					.load(getClass().getResource("/telas/UFForm.fxml"));
 			AnchorPane root = (AnchorPane) FXMLLoader
-					.load(getClass().getResource("/telas/UFForm.fxml"));
+					.load(getClass().getResource("/telas/CidadeForm.fxml"));
 			// Cria a cena com base no root(AnchorPane)
 			Scene scene = new Scene(root);
 			// Seta para o palco a cena

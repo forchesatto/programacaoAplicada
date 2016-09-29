@@ -3,6 +3,8 @@ package dao.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Collection;
+
 import org.junit.Test;
 
 import br.edu.unoesc.jdbcOO.dao.CidadeDAO;
@@ -35,6 +37,13 @@ public class CidadeDAOTest {
 		Cidade cidadeBanco = cidadeDAO.get(cidade.getCodigo());
 		assertEquals("Chapecó Alterado", cidadeBanco.getNome());
 		cidadeDAO.excluir(cidadeBanco.getCodigo());
+	}
+	
+	@Test
+	public void deveImprimirUf(){
+		CidadeDAO cidadeDAO = DAOFactory.get().cidadeDAO();
+		Collection<Cidade> cidades = cidadeDAO.todosComUf();
+		assertNotNull(cidades.iterator().next().getUf().getNome());
 	}
 	
 }

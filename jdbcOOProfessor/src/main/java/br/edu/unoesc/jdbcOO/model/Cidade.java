@@ -17,4 +17,15 @@ public class Cidade implements Entidade{
 		this.codigo = codigo;
 	}
 	
+	public String getNomeUF(){
+		if(uf != null){
+			return uf.getNome();
+		}
+		return "";
+	}
+	
+	public String getNome(){
+		return this.nome;
+	}
+	
 }
