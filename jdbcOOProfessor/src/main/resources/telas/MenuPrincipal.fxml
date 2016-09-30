@@ -17,7 +17,7 @@
                         <AnchorPane prefHeight="39.0" prefWidth="200.0">
                            <children>
                               <Button layoutX="10.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionUF" prefHeight="27.0" prefWidth="150.0" text="Unidade Federativa" />
-                              <Button layoutX="10.0" layoutY="42.0" mnemonicParsing="false" onAction="#onActionCidade" prefHeight="27.0" prefWidth="150.0" text="Cidade" />
+                              <Button layoutX="10.0" layoutY="42.0" mnemonicParsing="false" onAction="#onActionCidade" prefHeight="27.0" prefWidth="150.0" styleClass="custom-button" text="Cidade" />
                            </children>
                         </AnchorPane>
                      </content>

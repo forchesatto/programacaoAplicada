@@ -18,6 +18,7 @@ public class Main extends Application {
 					.load(getClass().getResource("/telas/MenuPrincipal.fxml"));
 			// Cria a cena com base no root(AnchorPane)
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add("/css/style.css");
 			// Seta para o palco a cena
 			primaryStage.setScene(scene);
 			// Faz mostrar a tela.
