@@ -19,6 +19,9 @@ public class MenuPrincipalController {
 		loader.setLocation(getClass().getResource("/telas/CidadeForm.fxml"));
 		try {
 			AnchorPane cidadeView = (AnchorPane) loader.load();
+			if(panelPrincipal.getItems().size() == 2){
+				panelPrincipal.getItems().remove(1);
+			}
 			panelPrincipal.getItems().add(cidadeView);
 		} catch (IOException e1) {
 			e1.printStackTrace();
