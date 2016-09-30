@@ -3,7 +3,7 @@ package br.edu.unoesc.jdbcOO.main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -14,10 +14,8 @@ public class Main extends Application {
 			 * Encontra o arquivo fxml com o nome ufForm.fxml e cria o root que é
 			 * o AnchorPane adicionado no SceneBuilder.
 			 */
-//			AnchorPane root = (AnchorPane) FXMLLoader
-//					.load(getClass().getResource("/telas/UFForm.fxml"));
-			AnchorPane root = (AnchorPane) FXMLLoader
-					.load(getClass().getResource("/telas/CidadeForm.fxml"));
+			SplitPane root = (SplitPane) FXMLLoader
+					.load(getClass().getResource("/telas/MenuPrincipal.fxml"));
 			// Cria a cena com base no root(AnchorPane)
 			Scene scene = new Scene(root);
 			// Seta para o palco a cena
