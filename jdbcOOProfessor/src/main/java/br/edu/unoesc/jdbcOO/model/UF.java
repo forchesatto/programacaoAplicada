@@ -1,7 +1,6 @@
 package br.edu.unoesc.jdbcOO.model;
 
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleStringProperty;
+import br.edu.unoesc.jdbcOO.componente.RenderizaCombo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UF implements Entidade{
+public class UF implements Entidade, RenderizaCombo{
 
 	private Long codigo;
 	private String nome;
@@ -18,11 +17,8 @@ public class UF implements Entidade{
 		this.codigo = codigo;
 	}
 	
-	public SimpleLongProperty getCodigoProperty(){
-		return new SimpleLongProperty(this.getCodigo());
-	}
-	
-	public SimpleStringProperty getNomeProperty(){
-		return new SimpleStringProperty(this.getNome());
+	@Override
+	public String getText() {
+		return getNome();
 	}
 }

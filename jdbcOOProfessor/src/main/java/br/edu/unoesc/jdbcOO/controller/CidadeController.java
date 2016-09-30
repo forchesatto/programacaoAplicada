@@ -2,6 +2,8 @@ package br.edu.unoesc.jdbcOO.controller;
 
 import java.util.Collection;
 
+import br.edu.unoesc.jdbcOO.componente.ListCellBean;
+import br.edu.unoesc.jdbcOO.componente.StringConverterBean;
 import br.edu.unoesc.jdbcOO.dao.CidadeDAO;
 import br.edu.unoesc.jdbcOO.dao.UFDAO;
 import br.edu.unoesc.jdbcOO.factory.DAOFactory;
@@ -11,12 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 
 public class CidadeController {
 
@@ -79,39 +79,8 @@ public class CidadeController {
 	
 	private void montaComboUF(){
 		cbUF.getItems().addAll(ufDAO.todos());
-		// Define os valores que serão mostrados
-		// quando o combobox e aberto
-		cbUF.setCellFactory((comboBox) -> {
-			return new ListCell<UF>() {
-				@Override
-				protected void updateItem(UF item, boolean empty) {
-					super.updateItem(item, empty);
-
-					if (item == null || empty) {
-						setText(null);
-					} else {
-						setText(item.getNome());
-					}
-				}
-			};
-		});
-
-		// Define valor que renderiza quando o item é selecionado
-		cbUF.setConverter(new StringConverter<UF>() {
-			@Override
-			public String toString(UF uf) {
-				if (uf == null) {
-					return null;
-				} else {
-					return uf.getCodigo()+" - "+uf.getNome();
-				}
-			}
-
-			@Override
-			public UF fromString(String personString) {
-				return null; // No conversion fromString needed.
-			}
-		});
+		cbUF.setCellFactory((comboBox) ->{return new ListCellBean<UF>();});
+		cbUF.setConverter(new StringConverterBean<>());
 	}
 
 	@FXML
