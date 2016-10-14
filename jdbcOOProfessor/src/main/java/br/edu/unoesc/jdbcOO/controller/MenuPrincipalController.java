@@ -35,7 +35,17 @@ public class MenuPrincipalController {
 
 	@FXML
 	void onActionUF(ActionEvent event) {
-
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/telas/UFForm.fxml"));
+		try {
+			AnchorPane cidadeView = (AnchorPane) loader.load();
+			if(panelPrincipal.getItems().size() == 2){
+				panelPrincipal.getItems().remove(1);
+			}
+			panelPrincipal.getItems().add(cidadeView);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@FXML

@@ -27,6 +27,7 @@
             <Button layoutX="235.0" layoutY="127.0" mnemonicParsing="false" onAction="#onExcluir" text="Excluir" />
             <TextField fx:id="tfPesquisa" layoutX="242.0" layoutY="228.0" onKeyPressed="#onPesquisar" prefHeight="27.0" prefWidth="243.0" />
             <Label layoutX="114.0" layoutY="233.0" text="Pesquisa por nome:" />
+            <Button layoutX="312.0" layoutY="127.0" mnemonicParsing="false" onAction="#onRelatorio" text="Relatório" />
          </children>
       </Pane>
    </children>

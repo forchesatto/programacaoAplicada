@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-10-13T21:01:01 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioUF" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86169841-398a-41fa-90d8-bdbfd7bb7f46">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="medico"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="bWVkaWNvXzIwMTYuYFVGYCBBUyAsMTUsMTUsMmVlZmI3ZjQtMDUxMC00NGYxLWE3NTAtYmYyMDA0&#xA;YWQ3OGU2Ow=="/>
+	<queryString>
+		<![CDATA[SELECT medico_2016.`UF`.coduf,
+	medico_2016.`UF`.nome
+FROM medico_2016.`UF`]]>
+	</queryString>
+	<field name="coduf" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="1" width="100" height="15" uuid="68df4355-5b1e-4df8-a8c2-80d48b45b543">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Empresa XPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="21" width="100" height="15" uuid="0ceba720-a7b7-469d-863f-88497dd3a158"/>
+				<text><![CDATA[Rua Principal S/N]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="41" width="176" height="15" uuid="ff63d89c-1278-42d9-afec-6bb092e9bb8a"/>
+				<text><![CDATA[89820-000 - Xanxerê, SC]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="59" width="555" height="1" uuid="855aefa3-b480-42c0-9f65-93f40df22f63">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15" uuid="df8e9c74-11b2-4238-86e2-5b24d4ace0d3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="0" width="100" height="15" uuid="9a2c5a7a-fbe8-44a7-8c4b-5f04b705fcdf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="0" y="2" width="100" height="15" uuid="2fa4550a-d839-4133-bd06-1d64d23d0a93">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{coduf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="0" width="377" height="15" uuid="71d3b208-506b-44a2-ab14-81f449e5cf8d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="2" width="555" height="1" uuid="b5a8986b-2a55-4633-a978-3d96bef85f93">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="405" y="4" width="100" height="15" uuid="24d0cc0f-9fb9-453c-bd6c-67c7ecdd6c52">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="505" y="4" width="50" height="15" uuid="288b52b4-5516-479a-bbca-ca6c7e6c8472">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["/" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

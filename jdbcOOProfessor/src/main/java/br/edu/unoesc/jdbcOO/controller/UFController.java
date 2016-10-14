@@ -1,8 +1,10 @@
 package br.edu.unoesc.jdbcOO.controller;
 
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
+import br.edu.unoesc.jdbcOO.conexao.ConexaoMysqlProducao;
 import br.edu.unoesc.jdbcOO.dao.UFDAO;
 import br.edu.unoesc.jdbcOO.factory.DAOFactory;
 import br.edu.unoesc.jdbcOO.model.UF;
@@ -14,6 +16,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class UFController {
 
@@ -34,7 +40,7 @@ public class UFController {
 
 	@FXML
 	private TableColumn<UF, String> tcNome;
-
+	
 	private UFDAO ufDAO;
 
 	public UFController() {
@@ -103,6 +109,19 @@ public class UFController {
 		}
 		if(pesquisa.length() < 2){
 			atualizaTabela();
+		}
+	}
+	
+	@FXML
+	void onRelatorio(ActionEvent event) {
+		URL url = getClass().getResource("/relatorio/relatorioUF.jasper");
+		try {
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					url.getPath(), 
+					null, new ConexaoMysqlProducao().get());
+			JasperViewer.viewReport(jasperPrint);
+		} catch (JRException e) {
+			e.printStackTrace();
 		}
 	}
 
