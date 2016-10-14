@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
-import br.edu.unoesc.jdbcOO.conexao.ConexaoMysqlProducao;
 import br.edu.unoesc.jdbcOO.dao.UFDAO;
 import br.edu.unoesc.jdbcOO.factory.DAOFactory;
 import br.edu.unoesc.jdbcOO.model.UF;
@@ -16,9 +15,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class UFController {
@@ -28,7 +29,7 @@ public class UFController {
 
 	@FXML
 	private TextField tfNome;
-	
+
 	@FXML
 	private TextField tfPesquisa;
 
@@ -40,7 +41,7 @@ public class UFController {
 
 	@FXML
 	private TableColumn<UF, String> tcNome;
-	
+
 	private UFDAO ufDAO;
 
 	public UFController() {
@@ -98,27 +99,40 @@ public class UFController {
 
 	@FXML
 	void onPesquisar(KeyEvent event) {
-		/*Dentro do tfPesquisa.getText() tem as letras antes 
-		 * da que esta no "event" por esse motivo
-		 * preciso concatenar com o event. 
+		/*
+		 * Dentro do tfPesquisa.getText() tem as letras antes da que esta no
+		 * "event" por esse motivo preciso concatenar com o event.
 		 */
 		String pesquisa = tfPesquisa.getText() + event.getText();
-		if(pesquisa.length() > 2){
+		if (pesquisa.length() > 2) {
 			List<UF> ufs = ufDAO.getPorNome(pesquisa);
 			tblUf.setItems(FXCollections.observableArrayList(ufs));
 		}
-		if(pesquisa.length() < 2){
+		if (pesquisa.length() < 2) {
 			atualizaTabela();
 		}
 	}
-	
+
 	@FXML
 	void onRelatorio(ActionEvent event) {
-		URL url = getClass().getResource("/relatorio/relatorioUF.jasper");
+		URL url = getClass().getResource("/relatorio/relatorioUFDataSource.jasper");
+		// try {
+		// JasperPrint jasperPrint = JasperFillManager.fillReport(
+		// url.getPath(),
+		// null, new ConexaoMysqlProducao().get());
+		// JasperViewer.viewReport(jasperPrint);
+		//// JasperExportManager.exportReportToPdfFile(jasperPrint,
+		//// "relatorio.pdf");
+		// } catch (JRException e) {
+		// e.printStackTrace();
+		// }
 		try {
-			JasperPrint jasperPrint = JasperFillManager.fillReport(
-					url.getPath(), 
-					null, new ConexaoMysqlProducao().get());
+
+			JRDataSource dataSource = 
+					new JRBeanCollectionDataSource(ufDAO.todos()); // dados do relatório
+
+			JasperPrint jasperPrint = JasperFillManager
+					.fillReport(url.getPath(), null, dataSource);
 			JasperViewer.viewReport(jasperPrint);
 		} catch (JRException e) {
 			e.printStackTrace();
