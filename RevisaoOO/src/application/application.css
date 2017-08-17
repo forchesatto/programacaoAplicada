@@ -1,0 +1,41 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.combo-box .cell{
+    -fx-text-fill: blue;
+    -fx-font: 16px "Arial";
+}
+
+.combo-box .cell:selected .cell:hoved{
+	-fx-text-fill: red;
+}
+
+.menu-bar {
+    -fx-background-color: darkslategray;
+    -fx-opacity: 0.5;
+}
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: -fx-accent;
+    -fx-background-color: darkslategray;
+    -fx-opacity: 0.5;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.menu-item {
+    -fx-background-color: darkslategray;
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
+    -fx-text-fill: greenyellow;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color:darkslategray ;
+    -fx-background-insets: 0.0, 1.0, 2.0;
+    -fx-background-radius: 0.0 6.0 6.0 6.0, 0.0 5.0 5.0 5.0, 0.0 4.0 4.0 4.0;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+    -fx-opacity: 0.9;
+}
+
+.menu-item .label{
+    -fx-text-fill: greenyellow;
+}
