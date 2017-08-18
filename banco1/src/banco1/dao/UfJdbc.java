@@ -1,4 +1,4 @@
-package banco1;
+package banco1.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UfDAO {
+import banco1.conexao.ConexaoUtil;
+import banco1.model.Uf;
 
+public class UfJdbc implements UfDao {
+
+	@Override
 	public List<Uf> listar() {
 		List<Uf> ufs = new ArrayList<>();
 		try {
@@ -33,7 +37,8 @@ public class UfDAO {
 		return ufs;
 	}
 
-	public void insert(Uf uf) {
+	@Override
+	public void inserir(Uf uf) {
 		try {
 			Connection con = ConexaoUtil.getCon();
 			// comando de insert
@@ -47,8 +52,9 @@ public class UfDAO {
 			ex.printStackTrace();
 		}
 	}
-	
-	public void update(Uf uf) {
+
+	@Override
+	public void alterar(Uf uf) {
 		try {
 			Connection con = ConexaoUtil.getCon();
 			String update = "update uf set nome = ? where codigo = ? ";
@@ -60,8 +66,9 @@ public class UfDAO {
 			ex.printStackTrace();
 		}
 	}
-	
-	public void delete(Long codigo) {
+
+	@Override
+	public void excluir(Long codigo) {
 		try {
 			Connection con = ConexaoUtil.getCon();
 			String update = "delete from uf where codigo = ? ";
@@ -71,5 +78,24 @@ public class UfDAO {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	@Override
+	public Uf get(Long codigo) {
+		try {
+			Connection con = ConexaoUtil.getCon();
+			Statement stmt = con.createStatement();
+			String sql = "select * from uf where codigo = " 
+													+ codigo;
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			Uf uf = new Uf();
+			uf.setCodigo(rs.getLong("codigo"));
+			uf.setNome(rs.getString("nome"));
+			return uf;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

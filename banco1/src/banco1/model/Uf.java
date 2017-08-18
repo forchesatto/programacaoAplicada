@@ -1,4 +1,4 @@
-package banco1;
+package banco1.model;
 
 public class Uf {
 	private Long codigo;
