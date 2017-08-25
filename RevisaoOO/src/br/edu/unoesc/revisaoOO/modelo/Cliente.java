@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Cliente {
 
+	private Long codigo;
 	private String nome;
 	private String cpf;
 	private LocalDate dataNascimento;
@@ -61,5 +62,13 @@ public class Cliente {
 
 	public void setAgenciaPreferencial(Agencia agenciaPreferencial) {
 		this.agenciaPreferencial = agenciaPreferencial;
+	}
+
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 }

@@ -2,9 +2,11 @@ package application;
 
 import br.edu.unoesc.revisaoOO.componente.ListCellBean;
 import br.edu.unoesc.revisaoOO.componente.StringConverterBean;
+import br.edu.unoesc.revisaoOO.dao.AgenciaDAO;
+import br.edu.unoesc.revisaoOO.dao.ClienteDAO;
+import br.edu.unoesc.revisaoOO.dao.DaoFactory;
 import br.edu.unoesc.revisaoOO.modelo.Agencia;
 import br.edu.unoesc.revisaoOO.modelo.Cliente;
-import br.edu.unoesc.revisaoOO.modelo.SimuladorBD;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +45,9 @@ public class ClienteController {
 	@FXML
 	private Button btnNovaAgencia;
 	
+	private ClienteDAO clienteDao = DaoFactory.get().clienteDao();
+	private AgenciaDAO agenciaDao = DaoFactory.get().agenciaDao();
+	
 	@FXML
 	public void onNovaAgencia(ActionEvent event){
 		Stage stageDono = (Stage)btnNovaAgencia.getScene().getWindow();
@@ -51,19 +56,20 @@ public class ClienteController {
 		boolean salvarClicked = agenciaDialogFabrica.showAgenciaDialog();
 		if(salvarClicked){
 			cbxAgencia.getItems().clear();
-			cbxAgencia.getItems().addAll(SimuladorBD.getAgencias());
+			cbxAgencia.getItems().addAll(agenciaDao.listar());
 		}
 	}
 
 	@FXML
 	public void initialize() {
-		lvCliente.setItems(FXCollections.observableArrayList());
+		lvCliente.setItems(FXCollections.observableArrayList(clienteDao.listar()));
 		cbxAgencia.setCellFactory((comboBox) -> {
 			return new ListCellBean<Agencia>();
 		});
 		cbxAgencia.setConverter(new StringConverterBean<>());
 
-		cbxAgencia.setItems(FXCollections.observableArrayList(SimuladorBD.getAgencias()));
+		cbxAgencia.setItems(FXCollections.observableArrayList(agenciaDao.listar()));
+		
 		novo();
 	}
 
@@ -76,9 +82,10 @@ public class ClienteController {
 		cliente.setAgenciaPreferencial(cbxAgencia.getValue());
 
 		if (editando) {
+			clienteDao.alterar(cliente);
 			lvCliente.refresh();
 		} else {
-			SimuladorBD.insert(cliente);
+			clienteDao.inserir(cliente);
 			lvCliente.getItems().add(cliente);
 		}
 		novo();

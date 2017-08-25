@@ -3,6 +3,7 @@ package application;
 import java.util.Optional;
 
 import br.edu.unoesc.revisaoOO.dao.AgenciaDAO;
+import br.edu.unoesc.revisaoOO.dao.DaoFactory;
 import br.edu.unoesc.revisaoOO.modelo.Agencia;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -49,7 +50,7 @@ public class AgenciaController {
 	private Agencia agencia;
 	private boolean editando;
 	
-	private AgenciaDAO agenciaDao = new AgenciaDAO();
+	private AgenciaDAO agenciaDao = DaoFactory.get().agenciaDao();
 	
 	@FXML
 	void initialize(){
@@ -96,7 +97,7 @@ public class AgenciaController {
 		// Se o click foi no ok executa os comandos abaixo
 		if (result.get() == ButtonType.OK) {
 			tblAgencia.getItems().remove(agencia);
-			agenciaDao.delete(agencia.getCodigo());
+			agenciaDao.excluir(agencia.getCodigo());
 			limparCampos();
 		}
 	}
@@ -111,10 +112,10 @@ public class AgenciaController {
 		agencia.setNome(tfNome.getText());
 		agencia.setNumero(Integer.valueOf(tfNumero.getText()));
 		if(editando){
-			agenciaDao.update(agencia);
+			agenciaDao.alterar(agencia);
 			tblAgencia.refresh();
 		} else {
-			agenciaDao.insert(agencia);
+			agenciaDao.inserir(agencia);
 			tblAgencia.getItems().add(agencia);
 		}
 		novo();
