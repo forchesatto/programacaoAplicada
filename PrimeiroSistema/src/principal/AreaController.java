@@ -9,8 +9,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import principal.dao.AreaArquivo;
 import principal.dao.AreaDAO;
+import principal.dao.AreaJDBC;
+import principal.dao.AbstractFactory;
 import principal.model.Area;
 
 public class AreaController {
@@ -37,7 +38,7 @@ public class AreaController {
 
 	private boolean editando;
 
-	private AreaDAO areaDao = new AreaArquivo();
+	private AreaDAO areaDao = AbstractFactory.get().areaDao();
 
 	/**
 	 * Inicializa a classe controller. Este método é chamado automaticamente

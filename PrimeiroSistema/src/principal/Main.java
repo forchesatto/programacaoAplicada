@@ -2,6 +2,7 @@ package principal;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import principal.conexao.TipoConexao;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,9 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		System.setProperty("tipoPersistencia", 
+				TipoPersistencia.BANCO.name());
+		System.setProperty("tipoConexao", args[0]);
 		launch(args);
 	}
 }

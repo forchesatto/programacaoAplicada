@@ -21,6 +21,9 @@ public class MenuController {
 	private MenuItem miCliente;
 	
 	@FXML
+	private MenuItem miRelatorio;
+	
+	@FXML
 	void onAgencia(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("agenciaForm.fxml"));

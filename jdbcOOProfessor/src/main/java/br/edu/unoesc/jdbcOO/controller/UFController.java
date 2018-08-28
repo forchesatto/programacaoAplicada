@@ -116,16 +116,20 @@ public class UFController {
 	@FXML
 	void onRelatorio(ActionEvent event) {
 		URL url = getClass().getResource("/relatorio/relatorioUFDataSource.jasper");
-		// try {
-		// JasperPrint jasperPrint = JasperFillManager.fillReport(
-		// url.getPath(),
-		// null, new ConexaoMysqlProducao().get());
-		// JasperViewer.viewReport(jasperPrint);
-		//// JasperExportManager.exportReportToPdfFile(jasperPrint,
-		//// "relatorio.pdf");
-		// } catch (JRException e) {
-		// e.printStackTrace();
-		// }
+//		 try {
+//			 Map<String, Object> parametros = new HashMap<>();
+//			 parametros.put("nomeUf", "%sa%");
+//			 JasperPrint jasperPrint = JasperFillManager
+//					 .fillReport(
+//							 url.getPath(),
+//							 parametros, 
+//							 new ConexaoMysqlProducao().get());
+//			 JasperViewer.viewReport(jasperPrint);
+//			// JasperExportManager.exportReportToPdfFile(jasperPrint,
+//			// "relatorio.pdf");
+//		 } catch (JRException e) {
+//		 e.printStackTrace();
+//		 }
 		try {
 
 			JRDataSource dataSource = 
