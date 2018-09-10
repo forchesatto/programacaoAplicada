@@ -1,17 +1,21 @@
 package principal;
 
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import principal.dao.AreaDAO;
-import principal.dao.AreaJDBC;
 import principal.dao.AbstractFactory;
+import principal.dao.AreaDAO;
 import principal.model.Area;
 
 public class AreaController {
@@ -61,7 +65,7 @@ public class AreaController {
 		if (editando) {
 			areaDao.alterar(area);
 		} else {
-			areaDao.inserir(area);				
+			areaDao.inserir(area);
 		}
 		novoArea();
 		tblArea.refresh();
@@ -88,8 +92,28 @@ public class AreaController {
 
 	@FXML
 	void excluir(ActionEvent event) {
-		areaDao.excluir(area);
-		novoArea();
+		Alert alerta = new Alert(AlertType.CONFIRMATION,
+				"Deseja realmente excluir?",
+					ButtonType.CANCEL, ButtonType.OK);
+
+		// Desativando o comportamento padrão.
+		Button okButton = (Button) alerta.getDialogPane()
+				.lookupButton(ButtonType.OK);
+		okButton.setDefaultButton(false);
+		okButton.setText("Sim");
+		
+		Button cancelButton = (Button) alerta.getDialogPane()
+				.lookupButton(ButtonType.CANCEL);
+		cancelButton.setText("Não");
+
+		// Optional do Java 8 executa o show e fica aguardando o click do botão.
+		final Optional<ButtonType> result = alerta.showAndWait();
+		// Se o click foi no ok executa os comandos abaixo
+		if (ButtonType.OK.equals(result.get())) {
+			areaDao.excluir(area);
+			novoArea();
+		}
+
 	}
 
 	@FXML

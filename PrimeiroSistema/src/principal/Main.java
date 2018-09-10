@@ -25,7 +25,9 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		System.setProperty("tipoPersistencia", 
 				TipoPersistencia.BANCO.name());
-		System.setProperty("tipoConexao", args[0]);
+		if(args.length > 0){
+			System.setProperty("tipoConexao", args[0]);
+		}
 		launch(args);
 	}
 }

@@ -20,6 +20,14 @@ public class AreaJDBC implements AreaDAO{
 			statement.setInt(1, dado.getCodigo());
 			statement.setString(2, dado.getNome());
 			statement.executeUpdate();
+			
+			// Popular o objeto com o código gerado.
+			// Somente nos caso de campo auto-incremento
+			//ResultSet rs = statement.getGeneratedKeys();
+			//rs.next();
+			//dado.setCodigo(rs.getInt(1));
+			//---->
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

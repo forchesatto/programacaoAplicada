@@ -2,9 +2,9 @@ package principal.conexao;
 
 public enum TipoConexao {
 
-	TESTES(new PropriedadesConexao("/Users/forchesatto/teste.properties")), 
-	DESENVOLVIMENTO(new PropriedadesConexao("caminho")), 
-	CLIENTE(new PropriedadesConexao("caminho"));
+	TESTES(new PropriedadesConexao("teste.properties")), 
+	DESENVOLVIMENTO(new PropriedadesConexao("desenvolvimento.properties")), 
+	CLIENTE(new PropriedadesConexao("cliente.properties"));
 	
 	TipoConexao(PropriedadesConexao propriedadesConexao) {
 		this.propriedadesConexao = propriedadesConexao;

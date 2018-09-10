@@ -11,8 +11,9 @@ public class PropriedadesConexao {
 	private String url;
 	private String path;
 	
-	public PropriedadesConexao(String path){
-		this.path = path;
+	public PropriedadesConexao(String nomeArquivo){
+		this.path = System.getProperty("user.home")
+				+"/"+nomeArquivo;
 		Properties properties = new Properties();
 		try {
 			FileInputStream inStream = new FileInputStream(path);
