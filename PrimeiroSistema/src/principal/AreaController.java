@@ -92,28 +92,10 @@ public class AreaController {
 
 	@FXML
 	void excluir(ActionEvent event) {
-		Alert alerta = new Alert(AlertType.CONFIRMATION,
-				"Deseja realmente excluir?",
-					ButtonType.CANCEL, ButtonType.OK);
-
-		// Desativando o comportamento padrão.
-		Button okButton = (Button) alerta.getDialogPane()
-				.lookupButton(ButtonType.OK);
-		okButton.setDefaultButton(false);
-		okButton.setText("Sim");
-		
-		Button cancelButton = (Button) alerta.getDialogPane()
-				.lookupButton(ButtonType.CANCEL);
-		cancelButton.setText("Não");
-
-		// Optional do Java 8 executa o show e fica aguardando o click do botão.
-		final Optional<ButtonType> result = alerta.showAndWait();
-		// Se o click foi no ok executa os comandos abaixo
-		if (ButtonType.OK.equals(result.get())) {
+		if (new AlertaFactory().confirmaExclusao()) {
 			areaDao.excluir(area);
 			novoArea();
 		}
-
 	}
 
 	@FXML
