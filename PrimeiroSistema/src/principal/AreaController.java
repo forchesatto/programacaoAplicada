@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import principal.dao.AbstractFactory;
 import principal.dao.AreaDAO;
 import principal.model.Area;
@@ -44,6 +45,10 @@ public class AreaController {
 
 	private AreaDAO areaDao = AbstractFactory.get().areaDao();
 
+	private Stage dialogStage;
+	
+	private boolean clicadoSalvar;
+
 	/**
 	 * Inicializa a classe controller. Este método é chamado automaticamente
 	 * após o arquivo fxml ter sido carregado.
@@ -69,6 +74,10 @@ public class AreaController {
 		}
 		novoArea();
 		tblArea.refresh();
+		clicadoSalvar = true;
+		if(dialogStage != null){
+			dialogStage.close();
+		}
 	}
 
 	public void populaArea() {
@@ -109,6 +118,14 @@ public class AreaController {
 		area = new Area();
 		editando = false;
 		tblArea.setItems(FXCollections.observableArrayList(areaDao.listar()));
+	}
+
+	public void setStageDialog(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+
+	public boolean clicadoSalvar() {
+		return clicadoSalvar;
 	}
 
 }

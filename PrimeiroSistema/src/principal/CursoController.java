@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import principal.dao.AreaArquivo;
 import principal.dao.AreaDAO;
 import principal.dao.CursoArquivo;
@@ -54,6 +55,9 @@ public class CursoController {
 	private CursoDAO cursoDao = new CursoArquivo();
 	
 	private AreaDAO areaDao = new AreaArquivo();
+	
+	@FXML
+	private Button btnNovaArea;
 
 	/**
 	 * Inicializa a classe controller. Este método é chamado automaticamente
@@ -70,6 +74,7 @@ public class CursoController {
 	}
 	
 	private void populaCombo(){
+		cbxArea.getItems().clear();
 		for(Area area: areaDao.listar()){
 			cbxArea.getItems().add(area);
 		}
@@ -131,6 +136,17 @@ public class CursoController {
 		editando = false;
 		cbxArea.getSelectionModel().clearSelection();
 		tblCurso.setItems(FXCollections.observableArrayList(cursoDao.listar()));
+	}
+	
+	@FXML
+	void novaArea(ActionEvent event){
+		Stage stageDono = (Stage)btnNovaArea.getScene().getWindow();
+		AreaDialogFabrica areaDialog 
+							= new AreaDialogFabrica(stageDono);
+		boolean clicadoSalvar = areaDialog.showDialog();
+		if(clicadoSalvar){
+			populaCombo();
+		}
 	}
 
 }
