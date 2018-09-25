@@ -72,11 +72,12 @@ public class AreaController {
 		} else {
 			areaDao.inserir(area);
 		}
-		novoArea();
 		tblArea.refresh();
 		clicadoSalvar = true;
 		if(dialogStage != null){
 			dialogStage.close();
+		} else {
+			novoArea();
 		}
 	}
 
@@ -96,6 +97,9 @@ public class AreaController {
 			area = tblArea.getSelectionModel().getSelectedItem();
 			populaTela(area);
 			editando = true;
+		}
+		if(event.getClickCount() > 1){
+			dialogStage.close();
 		}
 	}
 
@@ -126,6 +130,10 @@ public class AreaController {
 
 	public boolean clicadoSalvar() {
 		return clicadoSalvar;
+	}
+	
+	public Area getArea(){
+		return area;
 	}
 
 }

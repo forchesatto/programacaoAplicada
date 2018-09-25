@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import principal.model.Area;
 
 public class AreaDialogFabrica {
 	
@@ -16,8 +17,8 @@ public class AreaDialogFabrica {
 		this.stageDono = stageDono;
 	}
 
-	public boolean showDialog() {
-		boolean clicadoSalvar = true;
+	public Area showDialog() {
+		Area areaSelecionada = null;
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("areaForm.fxml"));
 		try {
@@ -37,12 +38,12 @@ public class AreaDialogFabrica {
 	        
 	        dialogStage.showAndWait();
 
-	        clicadoSalvar = controller.clicadoSalvar();
+	        areaSelecionada =controller.getArea();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
-		return clicadoSalvar;
+		return areaSelecionada;
 	}
 
 }

@@ -143,9 +143,10 @@ public class CursoController {
 		Stage stageDono = (Stage)btnNovaArea.getScene().getWindow();
 		AreaDialogFabrica areaDialog 
 							= new AreaDialogFabrica(stageDono);
-		boolean clicadoSalvar = areaDialog.showDialog();
-		if(clicadoSalvar){
+		Area areaSelecionada = areaDialog.showDialog();
+		if(areaSelecionada != null){
 			populaCombo();
+			cbxArea.setValue(areaSelecionada);
 		}
 	}
 
