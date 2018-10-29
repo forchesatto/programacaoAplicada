@@ -1,20 +1,22 @@
 package principal;
 
-import java.util.Optional;
+import java.net.URL;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import principal.conexao.ConexaoUtil;
 import principal.dao.AbstractFactory;
 import principal.dao.AreaDAO;
 import principal.model.Area;
@@ -134,6 +136,22 @@ public class AreaController {
 	
 	public Area getArea(){
 		return area;
+	}
+	
+	@FXML
+	void exibirRelatorio(ActionEvent action){
+		URL url = getClass().getResource("/relatorios/areaRelatorio.jasper");
+		try {
+			JasperPrint jasperPrint = JasperFillManager
+					 .fillReport(
+							 url.getPath(),
+							 null,
+							 ConexaoUtil.getConn());
+			JasperViewer.viewReport(jasperPrint);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		 
 	}
 
 }
